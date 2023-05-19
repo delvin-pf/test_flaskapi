@@ -29,6 +29,7 @@ def store():
 
 @webhooks_router.route('', methods=['POST'])
 def create():
+	print(request)
 	try:
 		webhook = WebHookSchema(**request.json)
 		return WebHooksController.create(webhook)

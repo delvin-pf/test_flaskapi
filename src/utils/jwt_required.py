@@ -11,7 +11,6 @@ def jwt_required(func):
 			return {'message': 'Authentication token missing'}, 401
 		
 		try:
-			print(token)
 			jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
 		except jwt.ExpiredSignatureError:
 			return {'message': 'Expired token'}, 401

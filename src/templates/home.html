@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<main>
+
+  <nav>
+
+    <a href="{{ url_for('logout') }}">Sair</a>
+  </nav>
+
+  <form method="POST" action="" class="form-horizontal">
+    {{ form.csrf_token }}
+    <fieldset class="search-field">
+      {{ form.email.label(class="form-label") }}
+        {% if form.email.errors %}
+        {{ form.email(class="search-input is-invalid") }}
+
+      {% else %}
+        {{ form.email(class="search-input") }}
+      {% endif %}
+    </fieldset>
+
+    {{ form.submit(class="search-submit") }}
+    {{ form.reset(class="search-submit") }}
+
+  </form>
+  <div class="invalid-feedback">
+    {% for erro in form.email.errors %}
+      {{ erro }}
+    {% endfor %}
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Status</th>
+      <th>Valor</th>
+      <th>Forma de pagamento</th>
+      <th>Parcelas</th>
+      <th>Ação</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in webhooks %}
+    <tr>
+      <td>{{item['name']}}</td>
+      <td>{{item['email']}}</td>
+      <td>{{item['status']}}</td>
+      <td>{{item['value']}}</td>
+      <td>{{item['payment_way']}}</td>
+      <td>{{item['installments']}}</td>
+      <td>{{item['action']}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</main>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<main class="main">
+  <h3>Cadastro</h3>
+
+  <form method="POST" action="" class="form">
+    {{ form.csrf_token }}
+    <fieldset class="form-field">
+      {{ form.username.label(class="form-label") }}
+      {% if form.username.errors %}
+      {{ form.username(class="form-input is-invalid") }}
+      <div class="invalid-feedback">
+        {% for erro in form.username.errors %}
+        {{ erro }}
+        {% endfor %}
+      </div>
+      {% else %}
+      {{ form.username(class="form-input") }}
+      {% endif %}
+
+    </fieldset>
+
+    <fieldset class="form-field">
+      {{ form.email.label() }}
+      {% if form.email.errors %}
+      {{ form.email(class="is-invalid") }}
+      <div class="invalid-feedback">
+        {% for erro in form.email.errors %}
+        {{ erro }}
+        {% endfor %}
+      </div>
+      {% else %}
+      {{ form.email() }}
+      {% endif %}
+    </fieldset>
+
+    <fieldset class="form-field">
+      {{ form.password.label() }}
+      {% if form.password.errors %}
+        {{ form.password(class="is-invalid") }}
+      <div class="invalid-feedback">
+        {% for erro in form.password.errors %}
+          {{ erro }}
+        {% endfor %}
+      </div>
+      {% else %}
+      {{ form.password() }}
+      {% endif %}
+    </fieldset>
+
+    <fieldset class="form-field">
+      {{ form.token.label() }}
+      {% if form.token.errors %}
+      {{ form.token(class="is-invalid") }}
+      <div class="invalid-feedback">
+        {% for erro in form.token.errors %}
+        {{ erro }}
+        {% endfor %}
+      </div>
+      {% else %}
+      {{ form.token() }}
+      {% endif %}
+    </fieldset>
+
+  {{ form.submit() }}
+  </form>
+</main>
+
+{% endblock %}

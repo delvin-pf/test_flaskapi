@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weebhook</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+
+</head>
+<body>
+
+<div class="container">
+  {% with mensagens = get_flashed_messages(with_categories=True) %}
+  {% if mensagens %}
+  {% for categoria, mensagem in mensagens %}
+  <div class="alert">
+    {{ mensagem }}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+</div>
+
+{% block body %}
+
+{% endblock %}
+
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 from src.database import database
-from ..modules.users import User
-from ..modules.webhooks import Webhook
+from src.modules.users import User
+from src.modules.webhooks import Webhook
 
 
 def create_tables():

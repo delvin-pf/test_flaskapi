@@ -5,11 +5,14 @@ from peewee import _ConnectionState, MySQLDatabase
 
 load_dotenv()
 
-DATABASE_NAME = os.environ.get('DATABASE_NAME')
-DATABASE_HOST = os.environ.get('DATABASE_HOST')
-DATABASE_PORT = int(os.environ.get('DATABASE_PORT'))
-DATABASE_USER = os.environ.get('DATABASE_USER')
-DATABASE_PASS = os.environ.get('DATABASE_PASSWORD')
+ENV = os.environ.get('ENV')
+prefix = 'PRD_' if ENV == 'production' else ''
+
+DATABASE_NAME = os.environ.get(f'{prefix}DATABASE_NAME')
+DATABASE_HOST = os.environ.get(f'{prefix}DATABASE_HOST')
+DATABASE_PORT = int(os.environ.get(f'{prefix}DATABASE_PORT'))
+DATABASE_USER = os.environ.get(f'{prefix}DATABASE_USER')
+DATABASE_PASS = os.environ.get(f'{prefix}DATABASE_PASSWORD')
 
 db_state_default = {
 	"closed": None,
@@ -52,3 +55,5 @@ except Exception as e:
 finally:
 	if not database.is_closed():
 		database.close()
+
+

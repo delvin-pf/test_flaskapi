@@ -22,8 +22,6 @@ class PagesController:
 			webhooks = WebHooksController.store(form.email.data, True)
 		else:
 			webhooks = WebHooksController.store(as_list=True)
-			
-		print(webhooks[0]['createdAt'])
 		
 		return render_template('home.html', webhooks=webhooks, form=form)
 	
@@ -67,7 +65,7 @@ class PagesController:
 				email=form.email.data,
 				password=bcrypt.hashpw(form.password.data.encode('utf-8'), bcrypt.gensalt())
 			)
-			
+			login_user(user)
 			return redirect(url_for('home'))
 			
 		return render_template('cadastro.html', form=form)

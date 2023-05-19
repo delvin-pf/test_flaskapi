@@ -34,7 +34,7 @@ class UserController:
 				status=400,
 				mimetype='application/json'
 			)
-		if not cls.__check_password(user.password, form.password):
+		if not cls.__check_password(form.password, user.password):
 			return Response(
 				json.dumps({'message': 'Invalid credentials'}),
 				status=401,
@@ -91,9 +91,8 @@ class UserController:
 	
 	
 	@classmethod
-	def __check_password(cls, plain_pass, hashed_pass):
-		
-		return bcrypt.checkpw(plain_pass, hashed_pass)
+	def __check_password(cls, plain_pass: str, hashed_pass: str):
+		return bcrypt.checkpw(plain_pass.encode('utf-8'), hashed_pass.encode('utf-8'))
 	
 	
 	@staticmethod

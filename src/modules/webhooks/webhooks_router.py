@@ -6,12 +6,14 @@ from pydantic import ValidationError
 
 from .WebhooksController import WebHooksController
 from .WebHookSchema import WebHookSchema
+from src.utils import jwt_required
 
 
 webhooks_router = Blueprint('webhooks', __name__, url_prefix='/api/webhooks')
 
 
 @webhooks_router.route('', methods=['GET'])
+@jwt_required
 def store():
 	email = request.args.get('email')
 	if email:

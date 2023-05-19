@@ -32,11 +32,11 @@ class PagesController:
 		if form.validate_on_submit() and 'submit' in request.form:
 			user = User.get_or_none(User.email == form.email.data)
 			if not user:
-				flash('Falha no login. Usuario invalidos')
+				flash('Falha no login. Usuario invalido')
 				return render_template('login.html', form=form)
 			
 			if not bcrypt.checkpw(form.password.data.encode('utf-8'), user.password.encode('utf-8')):
-				flash('Falha no login. Senha invalidos')
+				flash('Falha no login. Senha invalida')
 				return render_template('login.html', form=form)
 			
 			login_user(user)
@@ -75,4 +75,4 @@ class PagesController:
 	def logout():
 		logout_user()
 		flash('Logout com sucesso!')
-		return redirect('/login')
+		return redirect(url_for('login'))

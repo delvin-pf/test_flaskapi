@@ -1,11 +1,12 @@
 from datetime import datetime
 
 from peewee import Model, AutoField, CharField, DateTimeField
+from flask_login import UserMixin
 
 from src.database import database
 
 
-class User(Model):
+class User(Model, UserMixin):
 	id = AutoField(primary_key=True)
 	name = CharField()
 	email = CharField()

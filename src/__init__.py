@@ -1,16 +1,22 @@
+import os
+from dotenv import load_dotenv
+
 from flask import Flask, g
 from flask_login import login_required
 from flask_login import LoginManager
 
-from database import database
+from .database import database
 # Routes
-from modules.webhooks.webhooks_router import webhooks_router
-from modules.users.users_router import users_router
-from modules.users.UsersController import UserController
-from modules.Pages import PagesController
+from .modules.webhooks.webhooks_router import webhooks_router
+from .modules.users.users_router import users_router
+from .modules.users.UsersController import UserController
+from .modules.Pages import PagesController
+
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'flasapihashtag'
+app.config['SECRET_KEY'] = os.environ.get('SECRET')
 app.config['DEBUG'] = True
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -35,12 +41,7 @@ def after_request(response):
 	return response
 
 
-@app.route('/')
-def index():
-	return {'g': 'hola'}
-
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
 	return PagesController.login()
 

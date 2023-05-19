@@ -43,3 +43,12 @@ database = MySQLDatabase(
 	autorollback=True
 )
 database._state = PeeweeConnectionState()
+
+try:
+	database.connect()
+	print('\033[92m{}\033[0m'.format('Database conection successful!'))
+except Exception as e:
+	raise Exception('\033[91m{}\033[0m'.format('Database conection failed!'))
+finally:
+	if not database.is_closed():
+		database.close()

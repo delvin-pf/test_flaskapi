@@ -6,7 +6,7 @@ from peewee import _ConnectionState, MySQLDatabase
 load_dotenv()
 
 ENV = os.environ.get('ENV')
-prefix = 'PRD_' if ENV == 'production' else ''
+prefix = '' if ENV in ['production', 'development'] else 'REMOTE_PRD_'
 
 DATABASE_NAME = os.environ.get(f'{prefix}DATABASE_NAME')
 DATABASE_HOST = os.environ.get(f'{prefix}DATABASE_HOST')

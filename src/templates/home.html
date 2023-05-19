@@ -40,6 +40,7 @@
       <th>Forma de pagamento</th>
       <th>Parcelas</th>
       <th>Ação</th>
+      <th>Data/Hora</th>
     </tr>
     </thead>
     <tbody>
@@ -52,6 +53,7 @@
       <td>{{item['payment_way']}}</td>
       <td>{{item['installments']}}</td>
       <td>{{item['action']}}</td>
+      <td>{{item['createdAt'].strftime("%d/%m/%Y, %H:%M:%S")}}</td>
     </tr>
     {% endfor %}
     </tbody>

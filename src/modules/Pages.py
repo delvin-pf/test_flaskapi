@@ -22,6 +22,8 @@ class PagesController:
 			webhooks = WebHooksController.store(form.email.data, True)
 		else:
 			webhooks = WebHooksController.store(as_list=True)
+			
+		print(webhooks[0]['createdAt'])
 		
 		return render_template('home.html', webhooks=webhooks, form=form)
 	

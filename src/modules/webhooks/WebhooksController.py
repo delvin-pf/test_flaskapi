@@ -41,7 +41,7 @@ class WebHooksController:
 		action = None
 		log = None
 		if form.status == 'aprovado':
-			log = f'Liberar o acesso do email: {form.email}'
+			log = f'Enviar mensagem de boas vindas para o email: {form.email}'
 			action = 'Acesso liberado'
 		elif form.status == 'recusado':
 			log = f'Informar pagamento recusado para o email {form.email}'
@@ -60,7 +60,7 @@ class WebHooksController:
 			action=action
 		)
 	
-		print(action)
+		print(log)
 		
 		return Response({}, status=204, mimetype='application/json')
 	

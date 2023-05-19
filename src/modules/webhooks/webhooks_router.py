@@ -33,6 +33,7 @@ def create():
 	print('json', request.json)
 	print('values', request.values)
 	print('data', request.data)
+	print('get', request.get_json())
 	try:
 		webhook = WebHookSchema(**request.json)
 		

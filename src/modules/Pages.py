@@ -1,12 +1,20 @@
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_user, logout_user
 import bcrypt
+import pytz
 
 from src.forms import WebhookForm, LoginForm, SignupForm
-from .users.UserModel import User
+from .users import User
 from .users.UsersController import ALLOW_TOKEN
-from .webhooks.WebhooksController import WebHooksController
+from .webhooks import WebHooksController
 
+
+def convert_to_local_timezone(data: User):
+	local_tz = pytz.timezone('America/Sao_Paulo')
+	data['createdAt'] = data['createdAt'].replace(tzinfo=pytz.utc).astimezone(local_tz)
+	data['updatedAt'] = data['updatedAt'].replace(tzinfo=pytz.utc).astimezone(local_tz)
+	return data
+	
 
 class PagesController:
 	
@@ -22,6 +30,8 @@ class PagesController:
 			webhooks = WebHooksController.store(form.email.data, True)
 		else:
 			webhooks = WebHooksController.store(as_list=True)
+			
+		webhooks = [convert_to_local_timezone(web) for web in webhooks]
 		
 		return render_template('home.html', webhooks=webhooks, form=form)
 	

@@ -29,11 +29,12 @@ def store():
 
 @webhooks_router.route('', methods=['POST'])
 def create():
-	print('form', request.form)
+	print(request.get_data())
 	print('json', request.json)
 	print('values', request.values)
 	print('data', request.data)
-	print('get', request.get_json())
+	print('isJson', request.is_json)
+	
 	try:
 		webhook = WebHookSchema(**request.json)
 		

@@ -29,15 +29,11 @@ def store():
 
 @webhooks_router.route('', methods=['POST'])
 def create():
-	print(request.get_data())
-	print('json', request.json)
-	print('values', request.values)
-	print('data', request.data)
-	print('isJson', request.is_json)
+	data = request.get_data().decode('utf-8')
+	data_dict = json.loads(data)
 	
 	try:
-		webhook = WebHookSchema(**request.json)
-		
+		webhook = WebHookSchema(**data_dict)
 		return WebHooksController.create(webhook)
 	except ValidationError as e:
 		response = e.json()
